@@ -3,7 +3,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     promoCollections: [],
     collectionItems: [],
-    activeCollection: null
+    activeCollection: null,
+    affiliateNotificationSent: false
 }
 
 const giftIdeasReducer = (state = initialState, action) => {
@@ -27,6 +28,11 @@ const giftIdeasReducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeCollection: null
+            }
+        case actionTypes.SET_AFFLT_NOTIF_STATUS:
+            return {
+                ...state,
+                affiliateNotificationSent: action.value
             }
         default: return state;
     }

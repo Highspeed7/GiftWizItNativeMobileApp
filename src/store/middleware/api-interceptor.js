@@ -590,21 +590,30 @@ const apiInterceptor = store => next => async action => {
             }
             break;
         case actionTypes.GET_ALL_PROMO_COLLECTIONS:
+            store.dispatch(actions.uiStartLoading());
             try {
                 await axios.get(`https://giftwizitapi.azurewebsites.net/api/PromoCollections/getPromoCollections`).then((response) => {
                     action.data = response.data
+                    store.dispatch(actions.uiStopLoading());
+                    sleep(500);
                 });
             }catch(error) {
                 console.log(error);
+                store.dispatch(actions.uiStopLoading());
+                sleep(500);
             }
             break;
         case actionTypes.SET_IDEA_COLL_ITEMS:
+            store.dispatch(actions.uiStartLoading());
             try {
                 await axios.get(`https://giftwizitapi.azurewebsites.net/api/PromoCollections/GetPromoCollectionItems?collectionId=${action.collectionId}`).then((response) => {
                     action.data = response.data;
+                    store.dispatch(actions.uiStopLoading());
+                    sleep(500);
                 });
             }catch(error) {
-
+                store.dispatch(actions.uiStopLoading());
+                sleep(500);
             }
             break;
         case actionTypes.CLAIM_LIST_ITEM:
