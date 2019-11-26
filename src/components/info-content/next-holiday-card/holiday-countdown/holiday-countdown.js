@@ -21,8 +21,12 @@ class HolidayCountdown extends Component {
             });
         }, (1000));
     }
+    getTimezoneOffset = () => {
+        return new Date().getTimezoneOffset() * 60 * 1000 // Converts to milliseconds
+    }
     getTimeRemaining = (endtime) => {
-        let t = Date.parse(endtime) - Date.parse(new Date());
+        let nowDate = Date.parse(new Date()) - this.getTimezoneOffset();
+        let t = Date.parse(endtime) - nowDate;
         let seconds = Math.floor( (t/1000) % 60 );
         let minutes = Math.floor( (t/1000/60) % 60 );
         let hours = Math.floor( (t/(1000*60*60)) % 24 );
