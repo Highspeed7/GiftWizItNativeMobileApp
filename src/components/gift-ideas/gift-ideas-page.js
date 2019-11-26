@@ -67,7 +67,7 @@ class GiftIdeasPage extends Component {
                             </View>
                             : null
                         }
-                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={{justifyContent: 'center', alignItems: 'center', marginLeft: 20}}>
                             <Image style={{width: 100, height: 100}} source={{uri: item.image}} />
                         </View>
                         <View>
