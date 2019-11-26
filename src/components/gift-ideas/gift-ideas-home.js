@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity, StyleSheet, Button } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Button, Image } from 'react-native';
 import { NavigationActions, StackActions, ScrollView, FlatList } from 'react-navigation';
 import { Card, Overlay } from 'react-native-elements';
 import { getGiftIdeaNavigationRoute } from '../../utils/giftIdea-utils';
 
 import * as actions from '../../store/actions/index';
 import LinearGradient from 'react-native-linear-gradient';
+import WizardImg from '../../../assets/images/wizard-finger.png';
 
 class GiftIdeasHome extends Component {
     // inAuthView = false;
@@ -64,6 +65,9 @@ class GiftIdeasHome extends Component {
                     isVisible={this.state.affiliateNotifOpen == true}
                     onBackdropPress={this.acknowledgeAffiliateOverlay}
                 >
+                    <View style={{flex: 1, width: '100%', alignItems: 'center'}}>
+                        <Image source={WizardImg} style={{width: 200, height: 'auto', flex: 1}} resizeMode={'contain'} />
+                    </View>
                     <View style={{marginBottom: 35}}>
                         <Text>Please note, we earn a small commission from products listed within this part of the application.</Text>
                     </View>

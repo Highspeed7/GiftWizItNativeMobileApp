@@ -194,7 +194,7 @@ export const amazonProductView1Script = `
                 let itemUrl = document.evaluate(xPaths[pageType].itemUrl, root).iterateNext();
 
                 data.payload.name = name.textContent;
-                data.payload.image = image.getAttribute('data-midres-replacement');
+                data.payload.image = image.src;
                 data.payload.url = itemUrl.href;
 
                 return true;
