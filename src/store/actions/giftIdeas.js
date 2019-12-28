@@ -25,3 +25,10 @@ export const setIdeaCollectionItems = (collectionId) => {
         collectionId: collectionId
     };
 };
+
+export const setAffiliateNotifStatus = (value) => {
+    return {
+        type: actionTypes.SET_AFFLT_NOTIF_STATUS,
+        value: value
+    };
+};

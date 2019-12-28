@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, StyleSheet, View, FlatList, TouchableOpacity, Image, Linking } from 'react-native';
+import { Text, StyleSheet, View, FlatList, TouchableOpacity, Image, Linking, Button } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 
 import * as actions from '../../store/actions/index';
-import { Card } from 'react-native-elements';
+import { Card, Overlay } from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 
 class GiftIdeasPage extends Component {
     inAuthView = false;
+   
     componentDidMount = () => {
         this.props.setIdeaCollectionItems(this.props.activeCollection);
         this.inAuthView = (this.props.navigation.dangerouslyGetParent().state.routeName == "GiftIdeasAuthed");
+    }
+    acknowledgeAffiliateOverlay = () => {
+        this.setState({
+            affiliateNotifOpen: false
+        });
+        this.props.setAffiliateNotifStatus(true);
     }
     productClicked = (item) => {
         // TODO: Fix spelling of affiliate link.
@@ -33,6 +40,16 @@ class GiftIdeasPage extends Component {
             Linking.openURL(productLink);        
         }
     }
+    getPartnerName = (item) => {
+        itemUrl = item.linkItemPartners[0].affliateLink;
+        if(itemUrl == null) {
+            return false;
+        }
+        domainPartial = itemUrl.substring(0, itemUrl.lastIndexOf(".com"));
+        domain = domainPartial.substring(domainPartial.indexOf("www.")+4);
+
+        return domain;
+    }
     render() {
         const collectionsItems = (this.props.collectionItems && this.props.collectionItems.length > 0)
             ? <FlatList
@@ -44,7 +61,13 @@ class GiftIdeasPage extends Component {
                 data={this.props.collectionItems}
                 renderItem={({item, index}) => (
                     <TouchableOpacity style={{margin: 1, padding: 10, maxHeight: 250, backgroundColor: 'white'}} onPress={() => this.productClicked(item)}>
-                        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        {(this.getPartnerName(item) == "amazon")
+                            ? <View style={styles.partnerLogoContainer}>
+                                <Image style={{width: '100%', height: '100%'}} resizeMode={'contain'} source={{uri: 'https://gwresourceblob.blob.core.windows.net/images/available_at_amazon_en_vertical_drk.png'}} />
+                            </View>
+                            : null
+                        }
+                        <View style={{justifyContent: 'center', alignItems: 'center', marginLeft: 20}}>
                             <Image style={{width: 100, height: 100}} source={{uri: item.image}} />
                         </View>
                         <View>
@@ -62,6 +85,7 @@ class GiftIdeasPage extends Component {
             <LinearGradient colors={['#1e5799', '#2989d8', '#7db9e8']} style={styles.contentContainer}>
                 <Text style={{color: 'white', fontSize: 18}}>{this.props.title}</Text>
                 {collectionsItems}
+                
             </LinearGradient>
         )
     }
@@ -76,19 +100,28 @@ const styles = StyleSheet.create({
     productThumb: {
         maxHeight: 250,
         backgroundColor: 'white'
+    },
+    partnerLogoContainer: {
+        width: 50,
+        height: 50,
+        position: 'absolute',
+        zIndex: 99999,
+        resizeMode: 'contain',
+        left: 3,
+        top: 0
     }
 });
 
 mapDispatchToProps = dispatch => {
     return {
-        setIdeaCollectionItems: (collectionId) => dispatch(actions.setIdeaCollectionItems(collectionId))
+        setIdeaCollectionItems: (collectionId) => dispatch(actions.setIdeaCollectionItems(collectionId)),
     }
 };
 
 mapStateToProps = state => {
     return {
         activeCollection: state.giftIdeasReducer.activeCollection,
-        collectionItems: state.giftIdeasReducer.collectionItems
+        collectionItems: state.giftIdeasReducer.collectionItems,
     };
 };
 

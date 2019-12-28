@@ -39,7 +39,8 @@ export {
     getAllPromoCollections,
     setIdeaCollectionActive,
     setIdeaCollectionInactive,
-    setIdeaCollectionItems
+    setIdeaCollectionItems,
+    setAffiliateNotifStatus
 } from './giftIdeas';
 
 export {

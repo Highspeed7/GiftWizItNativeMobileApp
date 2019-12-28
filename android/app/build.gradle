@@ -132,8 +132,8 @@ android {
         applicationId "com.giftwizitmobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 21
-        versionName "1.0"
+        versionCode 24
+        versionName "1.0.3"
 		manifestPlaceholders = [
 			appAuthRedirectScheme: 'giftwi'
 		]
