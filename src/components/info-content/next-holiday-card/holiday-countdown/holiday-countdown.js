@@ -13,9 +13,9 @@ class HolidayCountdown extends Component {
         });
     }
     componentDidMount = () => {
-        this.getTimeRemaining("2019-12-25");
+        this.getTimeRemaining("2020-12-25");
         var intervalId = setInterval(() => {
-            this.getTimeRemaining("2019-12-25");
+            this.getTimeRemaining("2020-12-25");
             this.setState({
                 intervalId: intervalId
             });

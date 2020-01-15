@@ -149,7 +149,7 @@ class StoreSelector extends Component {
                                     </Modal>
                                 </Swatch>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.touchableSwatch} onPress={() => this.openStoreModal("Target")}>
+                            {/* <TouchableOpacity style={styles.touchableSwatch} onPress={() => this.openStoreModal("Target")}>
                                 <Swatch style={this.state.orientation == 'landscape' ? styles.storeSwatch : null}>
                                     <View>
                                         <Text>Target</Text>
@@ -170,8 +170,8 @@ class StoreSelector extends Component {
                                         />
                                     </Modal>
                                 </Swatch>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.touchableSwatch} onPress={() => this.openStoreModal("Walmart")}>
+                            </TouchableOpacity> */}
+                            {/* <TouchableOpacity style={styles.touchableSwatch} onPress={() => this.openStoreModal("Walmart")}>
                                 <Swatch style={this.state.orientation == 'landscape' ? styles.storeSwatch : null}>
                                     <View>
                                         <Text>Walmart</Text>
@@ -192,7 +192,7 @@ class StoreSelector extends Component {
                                         />
                                     </Modal>
                                 </Swatch>
-                            </TouchableOpacity>
+                            </TouchableOpacity> */}
                             {/* <TouchableOpacity style={styles.touchableSwatch} onPress={() => this.openStoreModal("BedBathBeyond")}>
                                 <Swatch>
                                     <Text>Bed Bath and Beyond</Text>
