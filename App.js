@@ -21,6 +21,8 @@ import StoreDrawerNavigator from './src/components/navigation/store-drawer-navig
 import StoreProductNavigator from './src/components/navigation/store-product-navigation';
 import StoreCart from './src/components/store/store-cart';
 
+import WishListStackNavigation from './src/components/navigation/wish-list-stack-navigation';
+
 import * as Sentry from '@sentry/react-native';
 import GiftIdeasStackNavigator from './src/components/navigation/gift-ideas-navigation';
 import Toaster from './src/components/toast-notifications/toaster';
@@ -35,7 +37,7 @@ const store = storeConfiguration();
 // TODO: Move routing info to a seperate file.
 // TODO: Maybe move the header image to a seperate file
 
-const PostAuthStackNavigator = createStackNavigator({
+const MainAppStackNavigator = createStackNavigator({
   Home: {
     screen: PostAuthTabNavigator,
     navigationOptions: {
@@ -59,6 +61,18 @@ const PostAuthStackNavigator = createStackNavigator({
     screen: StoreCart,
     path: "cart"
   }
+});
+
+const PostAuthStackNavigator = createStackNavigator({
+  MainApp: {
+    screen: MainAppStackNavigator
+  },
+  WishListsModalStack: {
+    screen: WishListStackNavigation
+  }
+},
+{
+  headerMode: 'none'
 });
 
 const startStackNavigator = createStackNavigator({

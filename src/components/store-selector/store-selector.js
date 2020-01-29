@@ -52,11 +52,12 @@ class StoreSelector extends Component {
         switch(store) {
             case "Amazon":
                 this.setState({
-                    amazonModalOpen: true,
+                    amazonModalOpen: null,
                     targetModalOpen: null,
                     walmartModalOpen: null,
                     bbbYondModalOpen: null
                 });
+                this.props.navigation.navigate("AmazonStore");
                 break;
             case "Walmart":
                 this.setState({
@@ -112,7 +113,12 @@ class StoreSelector extends Component {
     }
     openStoreFront = () => {
         this.props.uiStartSpinner();
-        this.props.openStoreFront();
+        // this.props.openStoreFront();
+        if(this.props.isAuthed) {
+            this.props.navigation.navigate("Store", {getPrevCheckout: true});
+        }else {
+            this.props.navigation.navigate("Store");
+        }
     }
     render() {
         return (
