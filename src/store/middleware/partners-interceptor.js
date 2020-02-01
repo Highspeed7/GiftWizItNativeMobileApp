@@ -8,8 +8,8 @@ const partnersInterceptor = store => next => async action => {
             try {
                 let body = action.data;
 
-                await axios.post('https://giftwizitapi.azurewebsites.net/api/AWS/ItemSearch', body).then((response) => {
-                    action.data = response.data;
+                await axios.get(`https://giftwizitapi.azurewebsites.net/api/AWS/ItemSearch/?keywords=${body.keywords}&page=${body.page}`).then((response) => {
+                    action.data = response.data.searchResult;
                 });
             }
             catch(error) {

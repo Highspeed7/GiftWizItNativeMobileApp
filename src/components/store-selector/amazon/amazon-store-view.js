@@ -1,12 +1,56 @@
 import React, {Component} from 'react';
-import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
+import {connect} from 'react-redux';
+import { View, Text, TextInput, StyleSheet, Image, Button, ScrollView } from 'react-native';
+
+import * as actions from '../../../store/actions/index';
 
 class AmazonStoreView extends Component {
+    state = {
+        searchTerm: ""
+    }
+    textEntered = (val) => {
+        val.replace(",", "");
+        
+        this.setState({
+            searchTerm: val
+        });
+    }
+    runSearchQuery = (value) => {
+        let searchQuery = {
+            keywords: this.state.searchTerm,
+            page: ++this.props.pageNum
+        }
+
+        this.props.searchAmazon(searchQuery);
+    }
     render() {
+        let listItems = this.props.currentItems || undefined;
+        amazonItems = (typeof listItems.length == 'undefined' && listItems.items.length > 0)
+            ? listItems.items.map((item) => (
+                <Text>{item.itemInfo.title.displayValue}</Text>
+            ))
+            :null
         return (
             <View style={styles.viewContainer}>
-                <TextInput placeholder="Enter your search..."></TextInput>
+                <View>
+                    <View>
+                        <TextInput 
+                            placeholder="Enter your search..."
+                            onChangeText={this.textEntered}
+                        ></TextInput>
+                    </View>
+                    <View>
+                        <Button
+                            title="Search"
+                            onPress={this.runSearchQuery}
+                        />
+                    </View>
+                </View>
+                <ScrollView>
+                    {amazonItems}
+                </ScrollView>
             </View>
+            
         )
     }
 }
@@ -19,4 +63,17 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AmazonStoreView;
+mapDispatchToProps = dispatch => {
+    return {
+        searchAmazon: (searchQuery) => dispatch(actions.searchAmazon(searchQuery))
+    }
+}
+
+mapStateToProps = state => {
+    return {
+        currentItems: state.partnersReducer.currentItems,
+        pageNum: state.partnersReducer.pageNum
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AmazonStoreView);

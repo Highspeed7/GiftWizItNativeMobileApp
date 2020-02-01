@@ -114,3 +114,7 @@ export {
     getClient,
     fetchNextPageOfProducts
 } from './storefront';
+
+export {
+    searchAmazon
+} from './partners'

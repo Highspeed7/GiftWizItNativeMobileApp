@@ -8,6 +8,7 @@ import giftListsReducer from './reducers/giftlists-reducer';
 import wishListReducer from './reducers/wishlists-reducer';
 import sharedListsReducer from './reducers/shared-lists-reducer';
 import apiInterceptor from './middleware/api-interceptor';
+import partnersInterceptor from './middleware/partners-interceptor';
 import signalRInterceptor from './middleware/signalr-interceptor';
 import storefrontInterceptor from './middleware/storefront-interceptor';
 import notificationActionInterceptor from './middleware/notification-action-interceptor';
@@ -15,6 +16,7 @@ import contactsReducer from './reducers/contacts-reducer';
 import storeFrontReducer from './reducers/storefront-reducer';
 import searchListsReducer from './reducers/search-reducer';
 import notificationsReducer from './reducers/notifications-reducer';
+import partnersReducer from './reducers/partners-reducer';
 import giftIdeasReducer from './reducers/giftideas-reducer';
 import chatReducer from './reducers/chat-reducer';
 import uiReducer from './reducers/ui-reducer';
@@ -31,6 +33,7 @@ const appReducer = combineReducers({
     chatReducer: chatReducer,
     storeFrontReducer: storeFrontReducer,
     giftIdeasReducer: giftIdeasReducer,
+    partnersReducer: partnersReducer,
     uiReducer: uiReducer
 });
 
@@ -43,7 +46,13 @@ const rootReducer = (state, action) => {
 }
 
 const storeConfiguration = () => {
-    return createStore(rootReducer, applyMiddleware(thunk, apiInterceptor, signalRInterceptor, notificationActionInterceptor, storefrontInterceptor));
+    return createStore(rootReducer, applyMiddleware(thunk, 
+        apiInterceptor, 
+        signalRInterceptor, 
+        notificationActionInterceptor, 
+        storefrontInterceptor,
+        partnersInterceptor
+    ));
 };
 
 export default storeConfiguration;
