@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { View, Text, TextInput, StyleSheet, Image, Button, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image, Button, ScrollView, FlatList } from 'react-native';
 
 import * as actions from '../../../store/actions/index';
+import AmazonProductCard from './amazon-product-card';
 
 class AmazonStoreView extends Component {
     state = {
@@ -24,12 +25,12 @@ class AmazonStoreView extends Component {
         this.props.searchAmazon(searchQuery);
     }
     render() {
-        let listItems = this.props.currentItems || undefined;
-        amazonItems = (typeof listItems.length == 'undefined' && listItems.items.length > 0)
-            ? listItems.items.map((item) => (
-                <Text>{item.itemInfo.title.displayValue}</Text>
-            ))
-            :null
+        // let listItems = this.props.currentItems || undefined;
+        // amazonItems = (typeof listItems.length == 'undefined' && listItems.items.length > 0)
+        //     ? listItems.items.map((item) => (
+        //         <Text>{item.itemInfo.title.displayValue}</Text>
+        //     ))
+        //     :null
         return (
             <View style={styles.viewContainer}>
                 <View>
@@ -46,9 +47,16 @@ class AmazonStoreView extends Component {
                         />
                     </View>
                 </View>
-                <ScrollView>
-                    {amazonItems}
-                </ScrollView>
+                <FlatList
+                    data={this.props.currentItems.items}
+                    renderItem={({item}) => {
+                        let imgHght = item.images.primary.large.width/4;
+                        let imgWidth = item.images.primary.large.height/4;
+                        return (
+                            <AmazonProductCard item={item} imgHght={imgHght} imgWidth={imgWidth} />
+                        )
+                    }}
+                />
             </View>
             
         )
