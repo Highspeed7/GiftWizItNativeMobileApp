@@ -16,7 +16,7 @@ class AmazonStoreView extends Component {
             searchTerm: val
         });
     }
-    runSearchQuery = (value) => {
+    getNextPage = () => {
         let searchQuery = {
             keywords: this.state.searchTerm,
             page: ++this.props.pageNum
@@ -24,13 +24,16 @@ class AmazonStoreView extends Component {
 
         this.props.searchAmazon(searchQuery);
     }
+    runSearchQuery = () => {
+        this.props.resetResultPage();
+        let searchQuery = {
+            keywords: this.state.searchTerm,
+            page: 1
+        }
+
+        this.props.searchAmazon(searchQuery);
+    }
     render() {
-        // let listItems = this.props.currentItems || undefined;
-        // amazonItems = (typeof listItems.length == 'undefined' && listItems.items.length > 0)
-        //     ? listItems.items.map((item) => (
-        //         <Text>{item.itemInfo.title.displayValue}</Text>
-        //     ))
-        //     :null
         return (
             <View style={styles.viewContainer}>
                 <View>
@@ -48,13 +51,19 @@ class AmazonStoreView extends Component {
                     </View>
                 </View>
                 <FlatList
-                    data={this.props.currentItems.items}
+                    onEndReached={this.getNextPage}
+                    onEndReachedThreshold={1}
+                    data={this.props.currentItems}
                     renderItem={({item}) => {
-                        let imgHght = item.images.primary.large.width/4;
-                        let imgWidth = item.images.primary.large.height/4;
-                        return (
-                            <AmazonProductCard item={item} imgHght={imgHght} imgWidth={imgWidth} />
-                        )
+                        // If there is no image, we don't need to display it for now.
+                        if(item.images != null) {
+                            let imgHght = item.images.primary.large.width/4;
+                            let imgWidth = item.images.primary.large.height/4;
+
+                            return (
+                                <AmazonProductCard item={item} imgHght={imgHght} imgWidth={imgWidth} />
+                            )
+                        }
                     }}
                 />
             </View>
@@ -73,7 +82,8 @@ const styles = StyleSheet.create({
 
 mapDispatchToProps = dispatch => {
     return {
-        searchAmazon: (searchQuery) => dispatch(actions.searchAmazon(searchQuery))
+        searchAmazon: (searchQuery) => dispatch(actions.searchAmazon(searchQuery)),
+        resetResultPage: () => dispatch(actions.resetResultPage())
     }
 }
 

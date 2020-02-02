@@ -9,7 +9,7 @@ const partnersInterceptor = store => next => async action => {
                 let body = action.data;
 
                 await axios.get(`https://giftwizitapi.azurewebsites.net/api/AWS/ItemSearch/?keywords=${body.keywords}&page=${body.page}`).then((response) => {
-                    action.data = response.data.searchResult;
+                    action.data.searchResult = response.data.searchResult;
                 });
             }
             catch(error) {

@@ -6,3 +6,9 @@ export const searchAmazon = (searchQuery) => {
         data: searchQuery
     }
 }
+
+export const resetResultPage = () => {
+    return {
+        type: actionTypes.RESET_RESULT_PAGE
+    }
+}

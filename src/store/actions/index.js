@@ -116,5 +116,6 @@ export {
 } from './storefront';
 
 export {
-    searchAmazon
+    searchAmazon,
+    resetResultPage    
 } from './partners'
