@@ -4,9 +4,11 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    Button
+    Button,
+    Linking
 } from 'react-native';
 import { connect } from 'react-redux';
+import { ShareDialog } from 'react-native-fbsdk';
 
 import Checkbox from '../../checkbox/checkbox';
 import * as actions from '../../../store/actions/index';
@@ -78,6 +80,10 @@ class ShareGiftList extends Component {
             })
         }
     }
+    doFacebookShare = () => {
+        const sharingUrl = "https://www.giftwizit.com";
+        Linking.openURL(`fb-messenger://share?link=${sharingUrl}`);
+    }
     onListShared = async () => {
         // Construct the share data object
         let shareData = {};
@@ -120,6 +126,12 @@ class ShareGiftList extends Component {
             : <Text>Either you have no contacts, or you have shared this list with all of them.</Text>
         return (
             <View style={styles.mainViewContainer}>
+                <View style={{marginBottom: 20}}>
+                    <Button 
+                        title="Facebook Share"
+                        onPress={this.doFacebookShare}
+                    />
+                </View>
                 <View style={{marginBottom: 40}}>
                     <Text style={{fontSize: 20}}>Share {this.props.activeList.name}</Text>
                 </View>
