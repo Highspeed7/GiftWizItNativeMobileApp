@@ -55,8 +55,8 @@ class AmazonStoreView extends Component {
                     onEndReachedThreshold={1}
                     data={this.props.currentItems}
                     renderItem={({item}) => {
-                        // If there is no image, we don't need to display it for now.
-                        if(item.images != null) {
+                        // If there is no image or offers, we don't need to display it for now.
+                        if(item.images != null && item.offers != null) {
                             let imgHght = item.images.primary.large.width/4;
                             let imgWidth = item.images.primary.large.height/4;
 
