@@ -29,10 +29,10 @@ class AmazonProductCard extends Component {
                             <Image style={{width: this.props.imgWidth, height: this.props.imgHght, maxHeight: 90}} resizeMode="contain"  source={{uri: this.props.item.images.primary.large.url}} />
                         </View>
                         <View style={{flex: 4, paddingTop: 3}}>
-                            <View style={{flexDirection: 'row', flex: 3}}>
+                            <View style={{flexDirection: 'row', flex: 4}}>
                                 <Text numberOfLines={2} ellipsizeMode='tail'>{this.props.item.itemInfo.title.displayValue}</Text>
                             </View>
-                            <View style={{flexDirection: 'row', flex: 4}}>
+                            <View style={{flexDirection: 'row', flex: 2}}>
                                 <Text style={{fontWeight: 'bold'}}>
                                     {
                                         this.props.item.offers.listings[0].price !== null 
@@ -41,22 +41,17 @@ class AmazonProductCard extends Component {
                                     }
                                 </Text>
                             </View>
-                            <View style={{flex: 2}}>
-                                <Button 
-                                    icon={
-                                        <FontAweomse
-                                            name={"star"}
-                                            color={"black"}
-                                            size={20}
-                                        />
-                                    }
-                                    onPress={this.addItemToWishList}
-                                    type="clear"
-                                />
-                            </View>
+                            
                         </View>
                     </View>
                 </TouchableOpacity>
+                <View style={{flex: 1, alignContent: 'center'}}>
+                    <Button 
+                        title="Add to wish list"
+                        onPress={this.addItemToWishList}
+                        type="outline"
+                    />
+                </View>
             </Card>
         )
     }
