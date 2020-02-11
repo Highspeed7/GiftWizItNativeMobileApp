@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { TouchableOpacity, Text, Image, Linking, View } from 'react-native';
+import { TouchableOpacity, Text, Image, Linking, View, Keyboard } from 'react-native';
 import { Card, Button } from 'react-native-elements';
 import FontAweomse from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 
 class AmazonProductCard extends Component {
+    state = {
+        affiliateNotifOpen: true
+    }
     productClicked = () => {
         Linking.openURL(this.props.item.detailPageURL)
     }
